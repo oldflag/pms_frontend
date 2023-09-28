@@ -2,19 +2,19 @@ import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 
-const ProductCategorys = () => {
+const Products = () => {
 
   const navigate = useNavigate()
 
   return (
     <Button
         color="inherit"
-        id="productCategory-button"
-        onClick={() => navigate('productCategorys')}
+        id="product-button"
+        onClick={() => navigate('products')}
       >
-        Product Types
+        Kits
     </Button>
   )
 }
 
-export default ProductCategorys
+export default Products

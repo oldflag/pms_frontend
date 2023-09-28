@@ -13,6 +13,9 @@ import UserTable from './user/UserTable';
 import Clients from './client/Clients';
 import ProductCategorys from './productCategory/ProductCategorys';
 import ItemCategorys from './itemCategory/ItemCategorys';
+import ProductItems from './productItem/ProductItems';
+import Products from './product/Products';
+import Boxs from './box/Boxs';
 
 import Dashboard from './dashboard/dashboard';
 
@@ -43,6 +46,12 @@ const linklist = useMemo(
         component: <Clients {...{ setSelectedLink, link: 'clients' }} />,
       },
       {
+        title: 'Products',
+        link: 'products',
+        component: <Products {...{ setSelectedLink, link: 'products' }} />,
+      },
+      
+      {
         title: 'Product Category',
         link: 'productCategorys',
         component: <ProductCategorys {...{ setSelectedLink, link: 'productCategorys' }} />,
@@ -51,6 +60,16 @@ const linklist = useMemo(
         title: 'Item Category',
         link: 'itemCategorys',
         component: <ItemCategorys {...{ setSelectedLink, link: 'itemCategorys' }} />,
+      },
+      {
+        title: 'Product Item',
+        link: 'productItems',
+        component: <ProductItems {...{ setSelectedLink, link: 'productItems' }} />,
+      },
+       {
+        title: 'Boxes',
+        link: 'boxs',
+        component: <Boxs {...{ setSelectedLink, link: 'boxs' }} />,
       },
       
       

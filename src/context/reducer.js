@@ -72,7 +72,7 @@ const reducer = (state, action) => {
     case 'DELETE_ITEMCATEGORY':
       return {
         ...state,
-        itemCategorys: state.itemCategorys.filter((aCategory) => aCategory.id !== action.payload),
+        itemCategorys: state.itemCategorys.filter((aItem) => aItem.id !== action.payload),
       };
     
     case 'OPEN_ITEMCATEGORY':
@@ -80,8 +80,62 @@ const reducer = (state, action) => {
 
     case 'CLOSE_ITEMCATEGORY':
       return { ...state, openItemCategory: false };
-
     
+    case 'UPDATE_PRODUCTITEM':
+      return { ...state, productItems: [action.payload, ...state.productItems] };
+    
+    case 'UPDATE_PRODUCTITEMS':
+      return { ...state, productItems: action.payload};
+    
+    case 'DELETE_PRODUCTITEM':
+      return {
+        ...state,
+        productItems: state.productItems.filter((aItem) => aItem.id !== action.payload),
+      };
+    
+    case 'OPEN_PRODUCTITEM':
+      return { ...state, openProductItem: true };
+
+    case 'CLOSE_PRODUCTITEM':
+      return { ...state, openProductItem: false };
+
+    case 'UPDATE_PRODUCT':
+      return { ...state, products: [action.payload, ...state.products] };
+    
+    case 'UPDATE_PRODUCTS':
+      return { ...state, products: action.payload};
+    
+    case 'DELETE_PRODUCT':
+      return {
+        ...state,
+        products: state.products.filter((aItem) => aItem.id !== action.payload),
+      };
+    
+    case 'OPEN_PRODUCT':
+      return { ...state, openProduct: true };
+
+    case 'CLOSE_PRODUCT':
+      return { ...state, openProduct: false };
+
+    case 'UPDATE_BOX':
+      return { ...state, boxs: [action.payload, ...state.boxs] };
+    
+    case 'UPDATE_BOXS':
+      return { ...state, boxs: action.payload};
+    
+    case 'DELETE_BOX':
+      return {
+        ...state,
+        boxs: state.boxs.filter((aItem) => aItem.id !== action.payload),
+      };
+    
+    case 'OPEN_BOX':
+      return { ...state, openBox: true };
+
+    case 'CLOSE_BOX':
+      return { ...state, openBox: false };
+    
+
     case 'UPDATE_TAPESTATION':
       return { ...state, tapeStations: [action.payload, ...state.tapeStations] };
     

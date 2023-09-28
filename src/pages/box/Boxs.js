@@ -5,7 +5,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Fab, Typography, Box, IconButton } from '@mui/material';
 import { useValue } from '../../context/ContextProvider';
-import { register, updateStatus } from '../../action/productCategory';
+import { register, updateStatus } from '../../action/box';
 import moment from 'moment';
 
 
@@ -16,10 +16,10 @@ import {
   GridToolbarQuickFilter,
 } from '@mui/x-data-grid';
 
-import { getProductCategorys, registerMany } from '../../action/productCategory';
-import ProductCategorysActions from './ProductCategorysActions'
-import AddForm from '../../components/productCategory/AddForm';
-import importData from '../../action/utils/importData';
+import { getBoxs, registerMany } from '../../action/box';
+import BoxsActions from './BoxsActions'
+// import AddForm from '../../components/box/AddForm';
+// import importData from '../../action/utils/importData';
 
 function EditToolbar(props) {
 
@@ -29,7 +29,7 @@ function EditToolbar(props) {
 
   const handleClick = () => {
     
-    dispatch({ type: 'OPEN_PRODUCTCATEGORY' })
+    dispatch({ type: 'OPEN_BOX' })
   };
 
   const cbFileData = async(data) => {
@@ -71,7 +71,7 @@ function EditToolbar(props) {
   const handleClickFile = (e) => {
 
    
-    importData(e.target.files[0], 1, cbFileData, 'Category')
+    // importData(e.target.files[0], 1, cbFileData, 'Box')
     
   };
 
@@ -100,19 +100,19 @@ function EditToolbar(props) {
       </Typography> */}
       <GridToolbarQuickFilter />
 
-      <Fab size="small" color="primary" aria-label="add" onClick={handleClick} sx={{ml:1}} >
+      {/* <Fab size="small" color="primary" aria-label="add" onClick={handleClick} sx={{ml:1}} >
         <AddIcon />
       </Fab>
       
       <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
         <input hidden accept="*" type="file" onChange={handleClickFile}/>
         <UploadFileIcon onClick={handleUploadInfo}/>
-      </Fab>
+      </Fab> */}
 
       <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
         <GridToolbarExport size="small" color="primary" sx={{ml:1}}
           csvOptions={{
-            fileName: 'ProductCategorys',
+            fileName: 'Boxs',
           }}
           startIcon={
             // <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
@@ -133,27 +133,27 @@ EditToolbar.propTypes = {
   setRows: PropTypes.func.isRequired,
 };
 
-export default function ProductCategorys() {
+export default function Boxs() {
 
   const {
-    state: { productCategorys },
+    state: { boxs },
     dispatch,
   } = useValue();
 
   const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
-    if (productCategorys.length === 0) getProductCategorys(dispatch);
+    if (boxs.length === 0) getBoxs(dispatch);
   }, []);
 
-  const [rows, setRows] = useState(productCategorys);
+  const [rows, setRows] = useState(boxs);
   const [rowModesModel, setRowModesModel] = useState({});
 
   useEffect(() => {
 
-    setRows(productCategorys)
+    setRows(boxs)
     
-  }, [productCategorys]);
+  }, [boxs]);
 
 
   const handleRowEditStart = (params, event) => {
@@ -172,16 +172,16 @@ export default function ProductCategorys() {
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
 
-    const { name, description, type, id} = updatedRow;
+    const { id, name, description, part, lot, store, status, expiration_date } = updatedRow;
 
     let result;
 
     if (isNewRecord){
       result = await register(updatedRow, dispatch)
     } else{
-      result = await updateStatus({ name, description, type}, id, dispatch);
+      result = await updateStatus({ name, description, part, lot, store, status, expiration_date }, id, dispatch);
       if(result) {
-        getProductCategorys(dispatch)
+        getBoxs(dispatch)
       }
     }
 
@@ -197,20 +197,30 @@ export default function ProductCategorys() {
       width: 100,
       cellClassName: 'actions',
       renderCell: (params) => (
-        <ProductCategorysActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+        <BoxsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
     { field: 'name', headerName: 'Name', flex: 1, editable: true },
     { field: 'description', headerName: 'Description', flex: 1, editable: true },
-    { field: 'type', headerName: 'Type', flex: 1, editable: true },
-    
+    { field: 'part', headerName: 'Part #', flex: 1, editable: true },
+    { field: 'product_name', headerName: 'Kit #', flex: 1, editable: true },
+    { field: 'lot', headerName: 'Lot #', flex: 1, editable: true },
+    { field: 'store', headerName: 'Store Temp.', flex: 1, editable: true },
+    { field: 'expiration_date', headerName: 'Expiration Date', flex: 1, editable: true },
+    {
+      field: 'createdAt',
+      headerName: 'Created At',
+      flex: 1,
+      type: 'dateTime',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
+    },
   ],
   [rows, rowModesModel]
   );
 
   return (
     <>
-    <AddForm />
+    {/* <AddForm /> */}
     <Box
       sx={{
         mt :2,
@@ -233,7 +243,7 @@ export default function ProductCategorys() {
         component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
-        Product Types
+        Reagent Boxes
       </Typography>
       <DataGrid
         sx={{

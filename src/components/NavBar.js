@@ -10,6 +10,9 @@ import logo from '../images/epigenome_logo.png'
 import Clients from './client/Clients'
 import ProductCategorys from './productCategory/ProductCategorys';
 import ItemCategorys from './itemCategory/ItemCategorys';
+import ProductItems from './productItem/ProductItems';
+import Products from './product/Products';
+import Boxs from './box/Boxs';
 
 
 const NavBar = () => {
@@ -43,7 +46,12 @@ const NavBar = () => {
                {(currentUser.role === "ADMIN") && <Users />}
               <Clients />
               <ProductCategorys />
-              <ItemCategorys />
+              <Products />
+              {/* <ItemCategorys /> */}
+              <Boxs />
+              <ProductItems />
+              
+
               </>
               )}
       
