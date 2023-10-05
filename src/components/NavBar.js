@@ -44,7 +44,8 @@ const NavBar = () => {
               >
                 Dashboard
               </Button> 
-               {(currentUser.role === "ADMIN") && <Users />}
+               {/* {(currentUser.role === "ADMIN") && <Users />} */}
+               <Users />
               <Clients />
               <Orders />
               
