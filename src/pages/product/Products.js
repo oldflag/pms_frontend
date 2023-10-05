@@ -1,6 +1,7 @@
 import {useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import AddIcon from '@mui/icons-material/Add';
+import LinkIcon from '@mui/icons-material/Link';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Fab, Typography, Box, IconButton } from '@mui/material';
@@ -19,6 +20,7 @@ import {
 import { getProducts, registerMany } from '../../action/product';
 import ProductsActions from './ProductsActions'
 import AddForm from '../../components/product/AddForm';
+import AddForm2 from  '../../components/product/AddForm2';
 import importData from '../../action/utils/importData';
 
 function EditToolbar(props) {
@@ -30,6 +32,11 @@ function EditToolbar(props) {
   const handleClick = () => {
     
     dispatch({ type: 'OPEN_PRODUCT' })
+  };
+
+  const handleClick2 = () => {
+    
+    dispatch({ type: 'OPEN_PRODUCT2' })
   };
 
   const cbFileData = async(data) => {
@@ -103,11 +110,14 @@ function EditToolbar(props) {
       <Fab size="small" color="primary" aria-label="add" onClick={handleClick} sx={{ml:1}} >
         <AddIcon />
       </Fab>
+       <Fab size="small" color="primary" aria-label="add" onClick={handleClick2} sx={{ml:1}} >
+        <LinkIcon />
+      </Fab>
       
-      <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
+      {/* <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
         <input hidden accept="*" type="file" onChange={handleClickFile}/>
         <UploadFileIcon onClick={handleUploadInfo}/>
-      </Fab>
+      </Fab> */}
 
       <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
         <GridToolbarExport size="small" color="primary" sx={{ml:1}}
@@ -221,6 +231,7 @@ export default function Products() {
   return (
     <>
     <AddForm />
+    <AddForm2 />
     <Box
       sx={{
         mt :2,
@@ -258,9 +269,9 @@ export default function Products() {
         // rowHeight={30}
         density='compact'
         initialState={{
-          // sorting: {
-          //   sortModel: [{ field: 'createdAt', sort: 'desc' }],
-          // },
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
 
         checkboxSelection={true}

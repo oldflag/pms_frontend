@@ -259,9 +259,9 @@ export default function ProductItems() {
         // rowHeight={30}
         density='compact'
         initialState={{
-          // sorting: {
-          //   sortModel: [{ field: 'createdAt', sort: 'desc' }],
-          // },
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
 
         checkboxSelection={true}

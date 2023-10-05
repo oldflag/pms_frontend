@@ -16,6 +16,7 @@ import ItemCategorys from './itemCategory/ItemCategorys';
 import ProductItems from './productItem/ProductItems';
 import Products from './product/Products';
 import Boxs from './box/Boxs';
+import Orders from './order/Orders';
 
 import Dashboard from './dashboard/dashboard';
 
@@ -70,6 +71,11 @@ const linklist = useMemo(
         title: 'Boxes',
         link: 'boxs',
         component: <Boxs {...{ setSelectedLink, link: 'boxs' }} />,
+      },
+      {
+        title: 'Orders',
+        link: 'orders',
+        component: <Orders {...{ setSelectedLink, link: 'orders' }} />,
       },
       
       

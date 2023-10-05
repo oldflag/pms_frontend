@@ -5,14 +5,10 @@ const url = process.env.REACT_APP_SERVER_URL + '/itemCategory';
 export const register = async (itemCategory, dispatch) => {
   dispatch({ type: 'START_LOADING' });
 
-  console.log(itemCategory)
-
   const result = await fetchData(
     { url: url + '/register', body: itemCategory },
     dispatch
   );
-
-  console.log(result)
 
   if (result) {
     dispatch({ type: 'UPDATE_ITEMCATEGORY', payload: result });

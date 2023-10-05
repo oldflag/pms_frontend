@@ -1,68 +1,52 @@
 import fetchData from './utils/fetchData';
 
-const url = process.env.REACT_APP_SERVER_URL + '/product';
+const url = process.env.REACT_APP_SERVER_URL + '/order';
 
-export const register = async (product, dispatch) => {
+export const register = async (order, dispatch) => {
   dispatch({ type: 'START_LOADING' });
 
   const result = await fetchData(
-    { url: url + '/register', body: product },
+    { url: url + '/register', body: order },
     dispatch
   );
 
   if (result) {
-    dispatch({ type: 'UPDATE_PRODUCT', payload: result });
+    dispatch({ type: 'UPDATE_ORDER', payload: result });
     dispatch({
       type: 'UPDATE_ALERT',
       payload: {
         open: true,
         severity: 'success',
-        message: 'A new product has been created successfully',
+        message: 'A new order has been created successfully',
       },
     });
-    dispatch({ type: 'CLOSE_PRODUCT' });
+    dispatch({ type: 'CLOSE_ORDER' });
 
   }
 
   dispatch({ type: 'END_LOADING' });
 };
 
-// export const connectBoxs = (updatedFields, productId, dispatch) => {
-
-
-//   return fetchData(
-//     {
-//       url: `${url}/connectBox/${productId}`,
-//       method: 'PATCH',
-//       body: updatedFields,
-//     },
-//     dispatch
-//   );
-  
-//   // dispatch({ type: 'CLOSE_PRODUCT2' });
-
-// };
-
-export const registerMany = async (products, dispatch) => {
+export const registerMany = async (orders, dispatch) => {
   dispatch({ type: 'START_LOADING' });
 
   const result = await fetchData(
-    { url: url + '/registerMany', body: products },
+    { url: url + '/registerMany', body: orders },
     dispatch
   );
 
 
   if (result) {
-    dispatch({ type: 'UPDATE_PRODUCTS', payload: result });
+    dispatch({ type: 'UPDATE_ORDERS', payload: result });
     dispatch({
       type: 'UPDATE_ALERT',
       payload: {
         open: true,
         severity: 'success',
-        message: 'A new product has been created successfully',
+        message: 'A new order has been created successfully',
       },
     });
-    // dispatch({ type: 'CLOSE_PRODUCT' });
+    // dispatch({ type: 'CLOSE_ORDER' });
 
   }
 
@@ -71,25 +55,25 @@ export const registerMany = async (products, dispatch) => {
 
 
 
-export const getProducts = async (dispatch) => {
+export const getOrders = async (dispatch) => {
 
   dispatch({ type: 'START_LOADING' });
 
   const result = await fetchData({ url, method: 'GET' }, dispatch);
   
   if (result) {
-    dispatch({ type: 'UPDATE_PRODUCTS', payload: result });
+    dispatch({ type: 'UPDATE_ORDERS', payload: result });
   }
 
   dispatch({ type: 'END_LOADING' });
 };
 
-export const updateStatus = (updatedFields, productId, dispatch) => {
+export const updateStatus = (updatedFields, orderId, dispatch) => {
 
 
   return fetchData(
     {
-      url: `${url}/updateStatus/${productId}`,
+      url: `${url}/updateStatus/${orderId}`,
       method: 'PATCH',
       body: updatedFields,
     },
@@ -112,11 +96,11 @@ export const deleteOne = async (id, dispatch) => {
       payload: {
         open: true,
         severity: 'success',
-        message: 'The product has been deleted successfully',
+        message: 'The order has been deleted successfully',
       },
     });
 
-    dispatch({ type: 'DELETE_PRODUCT', payload: result.id });
+    dispatch({ type: 'DELETE_ORDER', payload: result.id });
   
   }
 

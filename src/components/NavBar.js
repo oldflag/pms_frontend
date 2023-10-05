@@ -13,6 +13,7 @@ import ItemCategorys from './itemCategory/ItemCategorys';
 import ProductItems from './productItem/ProductItems';
 import Products from './product/Products';
 import Boxs from './box/Boxs';
+import Orders from './order/Orders';
 
 
 const NavBar = () => {
@@ -45,11 +46,13 @@ const NavBar = () => {
               </Button> 
                {(currentUser.role === "ADMIN") && <Users />}
               <Clients />
-              <ProductCategorys />
+              <Orders />
+              
               <Products />
               {/* <ItemCategorys /> */}
               <Boxs />
               <ProductItems />
+              <ProductCategorys />
               
 
               </>

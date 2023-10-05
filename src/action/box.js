@@ -21,6 +21,8 @@ export const register = async (box, dispatch) => {
       },
     });
     dispatch({ type: 'CLOSE_BOX' });
+    dispatch({ type: 'CLOSE_BOX1' });
+    dispatch({ type: 'CLOSE_BOX2' });
 
   }
 
@@ -59,11 +61,7 @@ export const getBoxs = async (dispatch) => {
 
   dispatch({ type: 'START_LOADING' });
 
-  console.log("loading box data")
-
   const result = await fetchData({ url, method: 'GET' }, dispatch);
-
-  console.log(result)
   
   if (result) {
     dispatch({ type: 'UPDATE_BOXS', payload: result });

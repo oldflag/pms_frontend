@@ -5,7 +5,7 @@ import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Fab, Typography, Box, IconButton } from '@mui/material';
 import { useValue } from '../../context/ContextProvider';
-import { register, updateStatus } from '../../action/productCategory';
+import { register, updateStatus } from '../../action/order';
 import moment from 'moment';
 
 
@@ -16,9 +16,9 @@ import {
   GridToolbarQuickFilter,
 } from '@mui/x-data-grid';
 
-import { getProductCategorys, registerMany } from '../../action/productCategory';
-import ProductCategorysActions from './ProductCategorysActions'
-import AddForm from '../../components/productCategory/AddForm';
+import { getOrders, registerMany } from '../../action/order';
+import OrdersActions from './OrdersActions'
+import AddForm from '../../components/order/AddForm';
 import importData from '../../action/utils/importData';
 
 function EditToolbar(props) {
@@ -29,7 +29,7 @@ function EditToolbar(props) {
 
   const handleClick = () => {
     
-    dispatch({ type: 'OPEN_PRODUCTCATEGORY' })
+    dispatch({ type: 'OPEN_ORDER' })
   };
 
   const cbFileData = async(data) => {
@@ -58,7 +58,7 @@ function EditToolbar(props) {
       payload: {
         open: true,
         severity: 'error',
-        message: 'Please check header names: name(required), contactName, contactEmail, contactPhone, note, url'
+        message: 'Please check header names: '
         },
       });
       return
@@ -71,7 +71,7 @@ function EditToolbar(props) {
   const handleClickFile = (e) => {
 
    
-    importData(e.target.files[0], 1, cbFileData, 'Category')
+    importData(e.target.files[0], 1, cbFileData, 'Order')
     
   };
 
@@ -82,7 +82,7 @@ function EditToolbar(props) {
       payload: {
         open: true,
         severity: 'info',
-        message: 'header(1st row): name contactName contactEmail contactPhone note url'
+        message: 'header(1st row): '
       },
     });
     
@@ -96,7 +96,7 @@ function EditToolbar(props) {
         component="h6"
         sx={{ textAlign: 'left', flexGrow: 1 }}
       >
-        Categorys
+        Orders
       </Typography> */}
       <GridToolbarQuickFilter />
 
@@ -112,7 +112,7 @@ function EditToolbar(props) {
       <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
         <GridToolbarExport size="small" color="primary" sx={{ml:1}}
           csvOptions={{
-            fileName: 'ProductCategorys',
+            fileName: 'Orders',
           }}
           startIcon={
             // <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
@@ -133,27 +133,27 @@ EditToolbar.propTypes = {
   setRows: PropTypes.func.isRequired,
 };
 
-export default function ProductCategorys() {
+export default function Orders() {
 
   const {
-    state: { productCategorys },
+    state: { orders },
     dispatch,
   } = useValue();
 
   const [pageSize, setPageSize] = useState(15);
 
   useEffect(() => {
-    if (productCategorys.length === 0) getProductCategorys(dispatch);
+    if (orders.length === 0) getOrders(dispatch);
   }, []);
 
-  const [rows, setRows] = useState(productCategorys);
+  const [rows, setRows] = useState(orders);
   const [rowModesModel, setRowModesModel] = useState({});
 
   useEffect(() => {
 
-    setRows(productCategorys)
+    setRows(orders)
     
-  }, [productCategorys]);
+  }, [orders]);
 
 
   const handleRowEditStart = (params, event) => {
@@ -172,16 +172,16 @@ export default function ProductCategorys() {
     const updatedRow = { ...newRow, isNew: false };
     setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
 
-    const { name, description, type, id} = updatedRow;
+    const { orderNum, quantity, price, note, status, id} = updatedRow;
 
     let result;
 
     if (isNewRecord){
       result = await register(updatedRow, dispatch)
     } else{
-      result = await updateStatus({ name, description, type}, id, dispatch);
+      result = await updateStatus({ orderNum, quantity, price, note, status}, id, dispatch);
       if(result) {
-        getProductCategorys(dispatch)
+        getOrders(dispatch)
       }
     }
 
@@ -197,12 +197,24 @@ export default function ProductCategorys() {
       width: 100,
       cellClassName: 'actions',
       renderCell: (params) => (
-        <ProductCategorysActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
+        <OrdersActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', flex: 1, editable: true },
-    { field: 'description', headerName: 'Description', flex: 1, editable: true },
-    { field: 'type', headerName: 'Type', flex: 1, editable: true },
+    { field: 'orderNum', headerName: 'Order #', flex: 1, editable: true },
+    { field: 'client_name', headerName: 'Client Name', flex: 1, editable: false },
+    { field: 'productCategory_name', headerName: 'Kit Name', flex: 1, editable: false },
+    { field: 'quantity', headerName: 'Qty', flex: 1, editable: true },
+    { field: 'price', headerName: 'Price', flex: 1, editable: true },
+    { field: 'note', headerName: 'Note', flex: 2, editable: true },
+    { field: 'status', headerName: 'Status', flex: 1, editable: true },
+    {
+      field: 'createdAt',
+      headerName: 'Created At',
+      flex: 1,
+      type: 'date',
+      valueFormatter: params => moment(params?.value).format("MM/DD/YYYY hh:mm A"),
+      // dateSetting:{locale: "en-US"}
+    },
     
   ],
   [rows, rowModesModel]
@@ -233,7 +245,7 @@ export default function ProductCategorys() {
         component="h6"
         sx={{ textAlign: 'center', mt: 2, mb: 2 }}
       >
-        Product Types
+        Orders
       </Typography>
       <DataGrid
         sx={{
@@ -248,9 +260,9 @@ export default function ProductCategorys() {
         // rowHeight={30}
         density='compact'
         initialState={{
-          // sorting: {
-          //   sortModel: [{ field: 'createdAt', sort: 'desc' }],
-          // },
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
 
         checkboxSelection={true}

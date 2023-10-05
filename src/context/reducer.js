@@ -117,6 +117,12 @@ const reducer = (state, action) => {
     case 'CLOSE_PRODUCT':
       return { ...state, openProduct: false };
 
+    case 'OPEN_PRODUCT2':
+      return { ...state, openProduct2: true };
+
+    case 'CLOSE_PRODUCT2':
+      return { ...state, openProduct2: false };
+
     case 'UPDATE_BOX':
       return { ...state, boxs: [action.payload, ...state.boxs] };
     
@@ -134,6 +140,36 @@ const reducer = (state, action) => {
 
     case 'CLOSE_BOX':
       return { ...state, openBox: false };
+
+    case 'OPEN_BOX1':
+      return { ...state, openBox1: true };
+
+    case 'CLOSE_BOX1':
+      return { ...state, openBox1: false };
+    
+    case 'OPEN_BOX2':
+      return { ...state, openBox2: true };
+
+    case 'CLOSE_BOX2':
+      return { ...state, openBox2: false };
+    
+    case 'UPDATE_ORDER':
+      return { ...state, orders: [action.payload, ...state.orders] };
+    
+    case 'UPDATE_ORDERS':
+      return { ...state, orders: action.payload};
+    
+    case 'DELETE_ORDER':
+      return {
+        ...state,
+        orders: state.orders.filter((aItem) => aItem.id !== action.payload),
+      };
+    
+    case 'OPEN_ORDER':
+      return { ...state, openOrder: true };
+
+    case 'CLOSE_ORDER':
+      return { ...state, openOrder: false };
     
 
     case 'UPDATE_TAPESTATION':

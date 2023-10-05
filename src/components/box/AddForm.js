@@ -15,38 +15,27 @@ import {
   Alert
 } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
-import { register as registerProduct } from '../../action/product';
+// import { register as registerProduct } from '../../action/product';
 import { register as registerBox } from '../../action/box';
 import { register as registerProductItem } from '../../action/productItem';
 import { useValue } from '../../context/ContextProvider';
-import {getProductCategorys} from '../../action/productCategory';
+// import {getProductCategorys} from '../../action/productCategory';
 import {getItemCategorys} from '../../action/itemCategory';
 import { getBoxs } from '../../action/box';
 import { getProductItems } from '../../action/productItem';
-import { getOrders } from '../../action/order';
 
 const AddForm = () => {
   const {
-    state: { openProduct, productCategorys, itemCategorys, boxs, productItems, orders  },
+    state: { openBox,itemCategorys, boxs, productItems  },
     dispatch,
   } = useValue();
 
   useEffect(() => {
-    if (productCategorys.length === 0) getProductCategorys(dispatch);
+    // if (productCategorys.length === 0) getProductCategorys(dispatch);
     if (itemCategorys.length === 0) getItemCategorys(dispatch);
     if (boxs.length === 0) getBoxs(dispatch);
     if (productItems.length === 0) getProductItems(dispatch);
-    if (orders.length === 0) getOrders(dispatch);
   },[]);
-
-  const productCategoryOptions = productCategorys.map(({ name, id }) => ({ label:name, id:id }));
-  const [productCategoryValue, setProductCategoryValue] = useState(productCategoryOptions[0]);
-
-  const orderOptions = orders.map(({ orderNum, id }) => ({ label:orderNum, id:id }));
-  const [orderValue, setOrderValue] = useState(orderOptions[0]);
-  
-  //for product table 
-  // const nameRef = useRef();
 
   //for Box
   const box1NameRef = useRef();
@@ -68,7 +57,7 @@ const AddForm = () => {
 
 
   const handleClose = () => {
-    dispatch({ type: 'CLOSE_PRODUCT' });
+    dispatch({ type: 'CLOSE_BOX' });
   };
 
   const handleMatch = (target, scanString) => {
@@ -96,8 +85,6 @@ const AddForm = () => {
 
     e.preventDefault();
 
-    // const name = nameRef.current.value;
-
     const box1Name = box1NameRef.current.value;
     const box1Part = box1PartRef.current.value;
     const box2Name = box2NameRef.current.value;
@@ -119,16 +106,15 @@ const AddForm = () => {
 
     if(window.confirm("Ready to submit?")){
 
-      let productId = uuidv4()
+      // let productId = uuidv4()
 
-      await registerProduct(
-        {
-          "id":productId,
-          "name":orderValue.label,
-          "orderId":orderValue.id, 
-          "productCategoryId": productCategoryValue.id,
-        }, 
-      dispatch)
+      // await registerProduct(
+      //   {
+      //     "id":productId,
+      //     "name":name, 
+      //     "productCategoryId": productCategoryValue.id,
+      //   }, 
+      // dispatch)
 
       let boxId1 = uuidv4()
       let boxId2 = uuidv4()
@@ -138,16 +124,16 @@ const AddForm = () => {
           "id":boxId1,
           "name":box1Name,
           "part":box1Part, 
-          "productId": productId,
+          // "productId": productId,
         }, 
       dispatch)
 
       await registerBox(
         {
           "id":boxId2,
-          "name":box2Name,
-          "part":box2Part, 
-          "productId": productId,
+          "name":box2Name, 
+          "part":box2Part,
+          // "productId": productId,
         }, 
       dispatch)
 
@@ -188,16 +174,13 @@ const AddForm = () => {
         dispatch)
       
       }
-
     }
-    
-    
   };
 
   return (
-    <Dialog fullWidth={true} maxWidth='md' open={openProduct} onClose={handleClose}>
+    <Dialog fullWidth={true} maxWidth='md' open={openBox} onClose={handleClose}>
       <DialogTitle sx={{ textAlign: 'center' }}>
-        "Register a New Droplet Paired-Tag Kit"
+        "Register a New Droplet Paired-Tag Box with tubes"
         <IconButton
           sx={{
             position: 'absolute',
@@ -214,32 +197,21 @@ const AddForm = () => {
         <DialogContent dividers>
           <Paper elevation={0}>
             <Grid container spacing={1} >
-              <Grid item xs={12} container direction="row" spacing={1}>
-                <Grid item xs={6}>
-                  {/* <TextField
+              {/* <Grid item xs={12} container direction="row" spacing={1}>
+                <Grid item xs={5}>
+                  <TextField
                   autoFocus
                   margin="dense"
                   id="name"
-                  label="Order #"
+                  label="Scan Kit Barcode"
                   type="text"
                   fullWidth
                   inputRef={nameRef}
                   inputProps={{ minLength: 2 }}
                   required
-                /> */}
-                <Autocomplete
-                  sx={{mt:1, mr:2}}
-                  disablePortal
-                  id="name"
-                  options={orderOptions}
-                  value={orderValue}
-                  onChange={(e, newValue) => {
-                    setOrderValue(newValue)
-                  }}
-                  renderInput={(params) => <TextField {...params} label="Order #" required/>}
                 />
                 </Grid>
-                <Grid item xs={6}>
+                <Grid item xs={7}>
                   <Autocomplete
                   sx={{mt:1, mr:2}}
                   disablePortal
@@ -252,7 +224,7 @@ const AddForm = () => {
                   renderInput={(params) => <TextField {...params} label="Product Type" required/>}
                 />
                 </Grid>
-              </Grid>
+              </Grid> */}
 
               <Grid item xs={12} container direction="row" spacing={1}>
                   <Grid item xs={3}>

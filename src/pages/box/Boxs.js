@@ -1,6 +1,7 @@
 import {useEffect, useState, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import AddIcon from '@mui/icons-material/Add';
+import LooksOneIcon from '@mui/icons-material/LooksOne';
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import { Fab, Typography, Box, IconButton } from '@mui/material';
@@ -17,8 +18,11 @@ import {
 } from '@mui/x-data-grid';
 
 import { getBoxs, registerMany } from '../../action/box';
+import { getProducts } from '../../action/product';
 import BoxsActions from './BoxsActions'
-// import AddForm from '../../components/box/AddForm';
+import AddForm from '../../components/box/AddForm';
+import AddForm1 from '../../components/box/AddForm1';
+import AddForm2 from '../../components/box/AddForm2';
 // import importData from '../../action/utils/importData';
 
 function EditToolbar(props) {
@@ -30,6 +34,16 @@ function EditToolbar(props) {
   const handleClick = () => {
     
     dispatch({ type: 'OPEN_BOX' })
+  };
+
+  const handleClick1 = () => {
+    
+    dispatch({ type: 'OPEN_BOX1' })
+  };
+
+  const handleClick2 = () => {
+    
+    dispatch({ type: 'OPEN_BOX2' })
   };
 
   const cbFileData = async(data) => {
@@ -102,9 +116,18 @@ function EditToolbar(props) {
 
       {/* <Fab size="small" color="primary" aria-label="add" onClick={handleClick} sx={{ml:1}} >
         <AddIcon />
+      </Fab> */}
+      <Fab size="small" color="primary" aria-label="add" onClick={handleClick1} sx={{ml:1}} >
+        1
+      </Fab>
+      <Fab size="small" color="primary" aria-label="add" onClick={handleClick2} sx={{ml:1}} >
+        2
+      </Fab>
+      <Fab size="small" color="primary" aria-label="add" onClick={handleClick} sx={{ml:1}} >
+        1+2
       </Fab>
       
-      <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
+      {/* <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
         <input hidden accept="*" type="file" onChange={handleClickFile}/>
         <UploadFileIcon onClick={handleUploadInfo}/>
       </Fab> */}
@@ -136,7 +159,7 @@ EditToolbar.propTypes = {
 export default function Boxs() {
 
   const {
-    state: { boxs },
+    state: { boxs, products },
     dispatch,
   } = useValue();
 
@@ -144,6 +167,7 @@ export default function Boxs() {
 
   useEffect(() => {
     if (boxs.length === 0) getBoxs(dispatch);
+    if (products.length === 0) getProducts(dispatch);
   }, []);
 
   const [rows, setRows] = useState(boxs);
@@ -154,6 +178,11 @@ export default function Boxs() {
     setRows(boxs)
     
   }, [boxs]);
+
+  // console.log(products)
+
+  // const productOptions = products.filter(obj => obj._count_boxs < 2).map(({ name, id }) => ({ value:id, label:name }));
+
 
 
   const handleRowEditStart = (params, event) => {
@@ -220,7 +249,9 @@ export default function Boxs() {
 
   return (
     <>
-    {/* <AddForm /> */}
+    <AddForm />
+    <AddForm1 />
+    <AddForm2 />
     <Box
       sx={{
         mt :2,
@@ -258,9 +289,9 @@ export default function Boxs() {
         // rowHeight={30}
         density='compact'
         initialState={{
-          // sorting: {
-          //   sortModel: [{ field: 'createdAt', sort: 'desc' }],
-          // },
+          sorting: {
+            sortModel: [{ field: 'createdAt', sort: 'desc' }],
+          },
         }}
 
         checkboxSelection={true}
