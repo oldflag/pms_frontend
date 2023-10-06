@@ -10,6 +10,8 @@ const initialState = {
   users: [],
   clients: [],
   openClient: false,
+  reagents: [],
+  openReagent: false,
   productCategorys: [],
   openProductCategory: false,
   itemCategorys: [],

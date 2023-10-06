@@ -119,6 +119,8 @@ const AddForm = () => {
 
     if(window.confirm("Ready to submit?")){
 
+      const today = new Date();
+
       let productId = uuidv4()
 
       await registerProduct(
@@ -155,6 +157,13 @@ const AddForm = () => {
 
         let aProductItemObj = parseQRstr(aItem) 
 
+        const isAfterToday = new Date(aProductItemObj.exp) > today;
+
+        if (isAfterToday){
+          alert("Please check expiration date: " + aProductItemObj.exp);
+          return
+        }
+
         await registerProductItem(
         {
           "id":uuidv4(),
@@ -173,6 +182,13 @@ const AddForm = () => {
       for(let aItem of qrList2){
 
         let aProductItemObj = parseQRstr(aItem) 
+
+        const isAfterToday = new Date(aProductItemObj.exp) > today;
+
+        if (isAfterToday){
+          alert("Please check expiration date: " + aProductItemObj.exp);
+          return
+        }
 
         await registerProductItem(
         {

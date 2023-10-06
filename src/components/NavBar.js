@@ -14,6 +14,7 @@ import ProductItems from './productItem/ProductItems';
 import Products from './product/Products';
 import Boxs from './box/Boxs';
 import Orders from './order/Orders';
+import Reagents from './reagent/Reagents';
 
 
 const NavBar = () => {
@@ -54,8 +55,7 @@ const NavBar = () => {
               <Boxs />
               <ProductItems />
               <ProductCategorys />
-              
-
+              <Reagents />
               </>
               )}
       

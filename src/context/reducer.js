@@ -45,6 +45,24 @@ const reducer = (state, action) => {
     case 'CLOSE_CLIENT':
       return { ...state, openClient: false };
 
+    case 'UPDATE_REAGENT':
+      return { ...state, reagents: [action.payload, ...state.reagents] };
+    
+    case 'UPDATE_REAGENTS':
+      return { ...state, reagents: action.payload};
+    
+    case 'DELETE_REAGENT':
+      return {
+        ...state,
+        reagents: state.reagents.filter((aReagent) => aReagent.id !== action.payload),
+      };
+    
+    case 'OPEN_REAGENT':
+      return { ...state, openReagent: true };
+
+    case 'CLOSE_REAGENT':
+      return { ...state, openReagent: false };
+
     case 'UPDATE_PRODUCTCATEGORY':
       return { ...state, productCategorys: [action.payload, ...state.productCategorys] };
     

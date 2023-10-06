@@ -89,6 +89,8 @@ const AddForm2 = () => {
 
     if(window.confirm("Ready to submit?")){
 
+      const today = new Date();
+
       let boxId2 = uuidv4()
 
       await registerBox(
@@ -103,6 +105,13 @@ const AddForm2 = () => {
       for(let aItem of qrList2){
 
         let aProductItemObj = parseQRstr(aItem) 
+
+        const isAfterToday = new Date(aProductItemObj.exp) > today;
+
+        if (isAfterToday){
+          alert("Please check expiration date: " + aProductItemObj.exp);
+          return
+        }
 
         await registerProductItem(
         {
