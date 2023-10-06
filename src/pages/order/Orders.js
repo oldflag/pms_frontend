@@ -202,7 +202,7 @@ export default function Orders() {
     },
     { field: 'orderNum', headerName: 'Order #', flex: 1, editable: true },
     { field: 'client_name', headerName: 'Client Name', flex: 1, editable: false },
-    { field: 'productCategory_name', headerName: 'Kit Name', flex: 1, editable: false },
+    { field: 'productCategory_name', headerName: 'Kit Name', flex: 2, editable: false },
     { field: 'quantity', headerName: 'Qty', flex: 1, editable: true },
     { field: 'price', headerName: 'Price', flex: 1, editable: true },
     { field: 'note', headerName: 'Note', flex: 2, editable: true },

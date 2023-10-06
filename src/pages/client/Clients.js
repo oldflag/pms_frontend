@@ -200,11 +200,11 @@ export default function Clients() {
         <ClientsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', flex: 1, editable: true },
-    { field: 'email', headerName: 'Email', flex: 1, editable: true },
+    { field: 'name', headerName: 'Name', flex:2, editable: true },
+    { field: 'email', headerName: 'Email', flex: 2, editable: true },
     { field: 'contactName', headerName: 'Contact Name', flex: 1, editable: true },
     { field: 'contactPhone', headerName: 'Phone', flex: 1, editable: true },
-    { field: 'note', headerName: 'Note', flex: 2, editable: true },
+    { field: 'note', headerName: 'Note', flex: 1, editable: true },
     { field: 'url', headerName: 'URL', flex: 1, editable: true },
     {
       field: 'active',
