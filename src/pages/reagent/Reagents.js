@@ -58,7 +58,7 @@ function EditToolbar(props) {
       payload: {
         open: true,
         severity: 'error',
-        message: 'Please check header names: name(required), contactName, contactEmail, contactPhone, note, url'
+        message: 'Please check header names: name(required), catNum, partNum, lotNum, vendor, expiration, description'
         },
       });
       return
@@ -82,7 +82,7 @@ function EditToolbar(props) {
       payload: {
         open: true,
         severity: 'info',
-        message: 'header(1st row): name contactName contactEmail contactPhone note url'
+        message: 'header(1st row): name(required), catNum, partNum, lotNum, vendor, expiration, description'
       },
     });
     
@@ -104,10 +104,10 @@ function EditToolbar(props) {
         <AddIcon />
       </Fab>
       
-      {/* <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
+      <Fab size="small" color="primary" aria-label="add" sx={{ml:1}} component="label">
         <input hidden accept="*" type="file" onChange={handleClickFile}/>
         <UploadFileIcon onClick={handleUploadInfo}/>
-      </Fab> */}
+      </Fab>
 
       <Fab size="small" color="primary" aria-label="download" sx={{ml:1}} component="label">
         <GridToolbarExport size="small" color="primary" sx={{ml:1}}
@@ -201,12 +201,12 @@ export default function Reagents() {
       ),
     },
     { field: 'name', headerName: 'Name', flex: 2, editable: true },
-    { field: 'description', headerName: 'Description', flex: 2, editable: true },
-    { field: 'vendor', headerName: 'Vendor', flex: 1, editable: true },
+    { field: 'vendor', headerName: 'Vendor', flex: 2, editable: true },
     { field: 'catNum', headerName: 'Cat#', flex: 1, editable: true },
     { field: 'partNum', headerName: 'P/N', flex: 1, editable: true },
     { field: 'lotNum', headerName: 'Lot#', flex: 1, editable: true },
     { field: 'expiration', headerName: 'Exp. Date', flex: 1, editable: true },
+    { field: 'description', headerName: 'Description', flex: 1, editable: true },
     {
       field: 'createdAt',
       headerName: 'Created At',
