@@ -229,13 +229,13 @@ export default function Boxs() {
         <BoxsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', flex: 1, editable: true },
-    { field: 'description', headerName: 'Description', flex: 1, editable: true },
+    { field: 'product_name', headerName: 'Order #', flex: 1, editable: true },
+    { field: 'name', headerName: 'Box #', flex: 1, editable: true },
     { field: 'part', headerName: 'Part #', flex: 1, editable: true },
-    { field: 'product_name', headerName: 'Kit #', flex: 1, editable: true },
     { field: 'lot', headerName: 'Lot #', flex: 1, editable: true },
     { field: 'store', headerName: 'Store Temp.', flex: 1, editable: true },
     { field: 'expiration_date', headerName: 'Expiration Date', flex: 1, editable: true },
+    { field: 'description', headerName: 'Description', flex: 1, editable: true },
     {
       field: 'createdAt',
       headerName: 'Created At',

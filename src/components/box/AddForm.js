@@ -169,7 +169,7 @@ const AddForm = () => {
 
         let aProductItemObj = parseQRstr(aItem) 
 
-        const isAfterToday = new Date(aProductItemObj.exp) > today;
+        const isAfterToday = new Date(aProductItemObj.exp) < today;
 
         if (isAfterToday){
           alert("Please check expiration date: " + aProductItemObj.exp);

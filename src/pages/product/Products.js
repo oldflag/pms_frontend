@@ -210,7 +210,7 @@ export default function Products() {
         <ProductsActions {...{ params, rows, setRows, rowModesModel, setRowModesModel }} />
       ),
     },
-    { field: 'name', headerName: 'Name', flex: 1, editable: true },
+    { field: 'name', headerName: 'Order #', flex: 1, editable: true },
     { field: 'description', headerName: 'Description', flex: 1, editable: true },
     { field: 'part', headerName: 'Part #', flex: 1, editable: true },
     { field: 'productCategory_name', headerName: 'Product Type', flex: 1, editable: true },

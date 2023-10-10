@@ -206,7 +206,8 @@ export default function ProductItems() {
     { field: 'store', headerName: 'Store Temp', flex: 1, editable: true },
     { field: 'expiration_date', headerName: 'Exp Date', flex: 1, editable: true },
     { field: 'description', headerName: 'Description', flex: 1, editable: true },
-    { field: 'status', headerName: 'Status', flex: 1, editable: true },
+    { field: 'box_name', headerName: 'Box #', flex: 1, editable: false },
+    { field: 'box_product_name', headerName: 'Order #', flex: 1, editable: false },
     {
       field: 'createdAt',
       headerName: 'Created At',
